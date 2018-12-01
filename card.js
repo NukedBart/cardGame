@@ -1,21 +1,21 @@
 var back = new Image();
-back.src = "cardBack.png";
-var stdW = 90;
-var stdH = 160;
+back.src = "data\\cardBack.png";
+var stdW = 135;
+var stdH = 240;
 
-class Card{	
+class Card{
 	constructor(imgSrc, w, h){
-		Card.rsz();
+		Card.rsz(w, h);
 		this.img = new Image();
 		this.img.src = imgSrc;
 		this.img.loaded = false;
 	}
-	
+
 	static rsz(w, h){
-		stdW = w || (scl * 90);
-		stdH = h || (scl * 160);
+		stdW = w || (scl * 135);
+		stdH = h || (scl * 240);
 	}
-	
+
 	display(x, y, showBack = false){
 		let ctx = document.getElementById("canvas").getContext("2d");
 		if(showBack){

@@ -4,6 +4,7 @@ const deckSize = 20;
 
 var deck;
 var hand;
+const bufferCard = new Card();
 
 function initialiseDeck(){
 	deck = [];
@@ -35,7 +36,7 @@ const optimalWidth = 1920;
 const optimalHeight = 1080;
 var width, height, scl;
 
-function resize(){	
+function resize(){
 	//Make the canvas always fit the screen with a screen ratio of 9/16
 	let tw = window.innerWidth - 25;
 	let th = window.innerHeight - 25;
@@ -58,6 +59,7 @@ function loadGame(){
 	shuffleDeck();
 	for(let i = 0; i < 4; i++)drawACard();
 	resize();
+	redraw();
 	/*let test = new Card("debug[0].png");
 	test.display(10, 10, false);*/
 }
@@ -70,8 +72,13 @@ function showHand(){
 	}
 }
 
+function showStaples(){
+	bufferCard.display(width - 200, height/2, true);
+}
+
 function redraw(){
 	showHand();
+	showStaples();
 }
 
 window.onload = loadGame;
