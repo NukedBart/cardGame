@@ -1,5 +1,6 @@
 canvas{
 	margin: auto;
 	border: 1px solid #83766A;
+	border-radius: 10px;
 	display: block;
 }

@@ -1,7 +1,4 @@
-var back = new Image();
-back.src = "data\\cardBack.png";
-var stdW = 135;
-var stdH = 240;
+const ctx = document.getElementById("canvas").getContext("2d");
 
 class Card{
 	constructor(imgSrc, w, h){
@@ -12,26 +9,25 @@ class Card{
 	}
 
 	static rsz(w, h){
-		stdW = w || (scl * 135);
-		stdH = h || (scl * 240);
+		Card.width = w || (scl * 135);
+		Card.height = h || (scl * 240);
 	}
 
 	display(x, y, showBack = false){
-		let ctx = document.getElementById("canvas").getContext("2d");
 		if(showBack){
-			ctx.drawImage(back, x, y, stdW, stdH);
-			ctx.roundRect(x, y, stdW, stdH, Math.ceil(scl * 5));
+			ctx.drawImage(Card.back, x, y, Card.width, Card.height);
+			ctx.roundRect(x, y, Card.width, Card.height, Math.ceil(scl * 5));
 			ctx.stroke();
 		}else{
 			if(this.img.loaded){
-				ctx.drawImage(this.img, x, y, stdW, stdH);
-				ctx.roundRect(x, y, stdW, stdH);
+				ctx.drawImage(this.img, x, y, Card.width, Card.height);
+				ctx.roundRect(x, y, Card.width, Card.height);
 				ctx.stroke();
 			}else{
 				this.img.onload = () => {
 					console.log("ha!");
-					ctx.drawImage(this.img, x, y, stdW, stdH);
-					ctx.roundRect(x, y, stdW, stdH, Math.ceil(scl * 5));
+					ctx.drawImage(this.img, x, y, Card.width, Card.height);
+					ctx.roundRect(x, y, Card.width, Card.height, Math.ceil(scl * 5));
 					ctx.stroke();
 					this.img.loaded = true;
 				}
@@ -39,6 +35,11 @@ class Card{
 		}
 	}
 }
+
+Card.back = new Image();
+Card.back.src = "data\\cardBack.png";
+Card.width = 135;
+Card.height = 240;
 
 
 /* Inspired by several code snippets from this stackoverflow entry:
