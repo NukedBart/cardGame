@@ -34,7 +34,7 @@ function drawACard(){
 
 
 var canvas = document.getElementById("canvas");
-//Maybe add an option later to change the preferred resolution, therewith changing these variables? For now, they are consts...
+// Maybe add an option later to change the preferred resolution, therewith changing these variables? For now, they are consts...
 const optimalWidth = 1920;
 const optimalHeight = 1080;
 var width, height, scl;
@@ -61,10 +61,10 @@ function loadGame(){
 	initialiseDeck();
 	shuffleDeck();
 	for(let i = 0; i < 4; i++)drawACard();
+	showHand();
 	resize();
 	redraw();
-	/*let test = new Card("debug[0].png");
-	test.display(10, 10, false);*/
+
 }
 
 function drawGridLines(){
@@ -75,29 +75,32 @@ function drawGridLines(){
 		ctx.lineTo(x2, y2);
 		ctx.stroke();
 	}
-	//Centre line
-	line(0, height/2, width, height/2);
+	//TODO reconsider the proportions...
+	//Centre line -> The player's pitch is slightly larger than the opponent's
+	line(0, (7/16)*height, width, (7/16)*height);
 	//Seperating stacks from battlefield
-	line(2*Card.width, 0, 2*Card.width, height);
+	line((1/7)*width, 0, (1/7)*width, height);
 }
 
-function showHand(){
-	let x = 10;
+function showHand(opponent = false){
+	let x = (1/7)*width + 10;
 	for(let c of hand){
-		c.display(x, height - Card.height - 10);
-		x += Card.width + 10;
+		c.display(x, height - Card.stdH - 10);
+		x += Card.stdW + 10;
 	}
 }
 
 function showStaples(){
-	bufferCard.display(Card.width/2, (3/4)*height - Card.height/2, true);
+	bufferCard.display(Card.stdW/2, (3/4)*height - Card.stdH/2, true);
 }
 
 function redraw(){
+	drawGridLines();
 	showHand();
 	showStaples();
+	/*let test = new Card("debug[0].png");
+	test.display(10, 10, true);*/
 	//Not necessarily..
-	drawGridLines();
 }
 
 window.onload = loadGame;
